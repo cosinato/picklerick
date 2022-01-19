@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "picklerick"
+version = "0.1.0"
+description = "Picklerick LLC Command Line Utility"
+authors = ["Cosinato <cosinato@pm.me>"]
+
+[tool.poetry.scripts]
+klickbrick = "picklerick:main"
+picklerick = "picklerick:main"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
