@@ -1,10 +1,44 @@
+language: python
+python: "3.9"
+dist: xenial
+
+stages:
+  - TEST
+  - DEPLOY
+
+cache:
+  pip: true
+  directories:
+    - "$HOME/.cache/pre-commit"
+
+jobs:
+  include:
+    - stage: TEST
+      install:
+        - pip install --upgrade pip
+        - pip install poetry
+        - poetry install -v
+      script:
+        - behave
+    - stage: DEPLOY
+      script:
+        - echo Deploying to PyPI...
+
+before_deploy:
+  - pip install --upgrade pip
+  - pip install poetry
+  - poetry config repositories.test-pypi https://test.pypi.org/legacy/
+  - poetry build
+
 deploy:
-  provider: pypi
+  provider: test-pypi
   user: __token__
   password: $TEST_PYPI_TOKEN
-  server: https://test.pypi.org/legacy/
   distributions: "sdist bdist_wheel"
   on:
-    branch: staging
-    condition: $TRAVIS_PYTHON_VERSION = "3.9"
+    branch: main
+    condition: $TRAVIS_BUILD_STAGE_NAME = Deploy
+    repo: cosinato/picklerick
+    tags: true
 
+#
