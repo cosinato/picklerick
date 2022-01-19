@@ -37,7 +37,7 @@ deploy:
   distributions: "sdist bdist_wheel"
   on:
     branch: main
-    condition: $TRAVIS_BUILD_STAGE_NAME = Deploy
+    condition: $TRAVIS_BUILD_STAGE_NAME = DEPLOY
     repo: cosinato/picklerick
     tags: true
 
