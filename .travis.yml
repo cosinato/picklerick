@@ -31,13 +31,13 @@ before_deploy:
   - poetry build
 
 deploy:
-  provider: test-pypi
+  provider: script 
+  script: poetry publish -r test-pypi
   user: __token__
   password: $TEST_PYPI_TOKEN
   distributions: "sdist bdist_wheel"
   on:
     all_branches: true
-    #branch: main
     condition: $TRAVIS_BUILD_STAGE_NAME = DEPLOY
     repo: cosinato/picklerick
     tags: false
