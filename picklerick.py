@@ -3,7 +3,7 @@
 import argparse, os
 from subprocess import getoutput
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 COMMIT_TEMPLATE_CFGFILE='~/.config/gitmsg.txt'
 COMMIT_TEMPLATE_MESSAGE="""
 Subject line (try to keep under 50 characters)

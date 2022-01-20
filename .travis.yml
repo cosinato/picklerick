@@ -30,9 +30,9 @@ jobs:
         - poetry build
       deploy:
         provider: script 
+        skip_existing: true
         script: poetry publish -r test-pypi
         skip_cleanup: true
-        skip_existing: true
         on:
           all_branches: true
           repo: cosinato/picklerick
