@@ -3,8 +3,8 @@ python: "3.9"
 dist: xenial
 
 stages:
-  - TEST
-  - DEPLOY
+  - test
+  - deploy
 
 cache:
   pip: true
@@ -13,29 +13,27 @@ cache:
 
 jobs:
   include:
-    - stage: TEST
+    - stage: test
       install:
         - pip install --upgrade pip
         - pip install poetry
         - poetry install -v
       script:
         - behave
-    - stage: DEPLOY
-      script:
-        - echo Deploying to PyPI...
-
-before_deploy:
-  - pip install --upgrade pip
-  - pip install poetry
-  - poetry config repositories.test-pypi https://test.pypi.org/legacy/
-  - poetry config http-basic.test-pypi __token__ $TEST_PYPI_TOKEN
-  - poetry build
-
-deploy:
-  provider: script 
-  script: poetry publish -r test-pypi
-  skip_cleanup: true
-  on:
-    all_branches: true
-    repo: cosinato/picklerick
-    tags: false
+    - stage: deploy
+      script: skip
+      before_deploy:
+        - pip install --upgrade pip
+        - pip install poetry
+        - poetry config repositories.test-pypi https://test.pypi.org/legacy/
+        - poetry config http-basic.test-pypi __token__ $TEST_PYPI_TOKEN
+        - poetry build
+      deploy:
+        provider: script 
+        script: poetry publish -r test-pypi
+        skip_cleanup: true
+        skip_existing: true
+        on:
+          all_branches: true
+          repo: cosinato/picklerick
+          tags: false
