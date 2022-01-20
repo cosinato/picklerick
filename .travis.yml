@@ -27,14 +27,14 @@ jobs:
 before_deploy:
   - pip install --upgrade pip
   - pip install poetry
-  - poetry build
   - poetry config repositories.test-pypi https://test.pypi.org/legacy/
   - poetry config http-basic.test-pypi __token__ $TEST_PYPI_TOKEN
+  - poetry build
 
 deploy:
   provider: script 
   script: poetry publish -r test-pypi
-  cleanup: false
+  skip_cleanup: true
   on:
     all_branches: true
     repo: cosinato/picklerick
