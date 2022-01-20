@@ -27,19 +27,15 @@ jobs:
 before_deploy:
   - pip install --upgrade pip
   - pip install poetry
-  - poetry config repositories.test-pypi https://test.pypi.org/legacy/
   - poetry build
+  - poetry config repositories.test-pypi https://test.pypi.org/legacy/
+  - poetry config http-basic.test-pypi __token__ $TEST_PYPI_PASSWORD
 
 deploy:
   provider: script 
   script: poetry publish -r test-pypi
-  user: __token__
-  password: $TEST_PYPI_TOKEN
-  distributions: "sdist bdist_wheel"
+  skip_cleanup: true
   on:
     all_branches: true
-    condition: $TRAVIS_BUILD_STAGE_NAME = DEPLOY
     repo: cosinato/picklerick
     tags: false
-
-#
