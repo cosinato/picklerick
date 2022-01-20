@@ -36,9 +36,10 @@ deploy:
   password: $TEST_PYPI_TOKEN
   distributions: "sdist bdist_wheel"
   on:
-    branch: main
+    all_branches: true
+    #branch: main
     condition: $TRAVIS_BUILD_STAGE_NAME = DEPLOY
     repo: cosinato/picklerick
-    tags: true
+    tags: false
 
 #
