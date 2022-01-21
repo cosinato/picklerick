@@ -35,7 +35,6 @@ def write_git_commit_msg_template():
 
 
 def config_git(username: str = "World", dryrun=False):
-    # print(f"Onboarding, {username}")
     if dryrun:
         print(f"git config --global user.name {username}")
         print(f"git config --global user.email {username}@picklerick.com")
@@ -48,11 +47,6 @@ def config_git(username: str = "World", dryrun=False):
         getoutput("git config --global init.defaultbranch=main")
         write_git_commit_msg_template()
         getoutput("git config --global commit.template ~/.config/gitmsg.txt")
-
-
-#   if os.path.exists(os.path.expanduser('~/.config/gitmsg.txt')):
-#       with open(os.path.expanduser('~/.config/gitmsg.txt'), 'r') as fileio:
-#           print(fileio.read())
 
 
 def onboarding(username: str = "World", dryrun=False):
