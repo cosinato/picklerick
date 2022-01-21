@@ -14,11 +14,7 @@ def step_impl(context):
 @then("we create the repo folder")
 def step_impl(context):
     assert context.output.splitlines()[0] == "successfully created project"
-    assert (
-        context.output.splitlines()[1]
-        == "successfully created project/tests"
-    )
+    assert context.output.splitlines()[1] == "successfully created project/tests"
     assert (
         context.output.splitlines()[3] == "successfully created project/features/steps"
     )
-

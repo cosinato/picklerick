@@ -13,7 +13,7 @@ logging.basicConfig(
     level=logging.DEBUG,
 )
 
-__version__ = "0.2.1"
+__version__ = "0.3.0"
 COMMIT_TEMPLATE_CFGFILE = "~/.config/gitmsg.txt"
 COMMIT_TEMPLATE_MESSAGE = """
 Subject line (try to keep under 50 characters)
@@ -186,6 +186,7 @@ def init_git(name: str = "project", dryrun=False):
         print(f"successfully created {name}/tests")
         print(f"successfully created {name}/features")
         print(f"successfully created {name}/features/steps")
+
 
 def config_git(name: str = "World", dryrun=False):
     if dryrun:
