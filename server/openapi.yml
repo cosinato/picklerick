@@ -1,0 +1,220 @@
+openapi: 3.0.3
+info:
+  title: Picklerick LLC API
+  version: v1
+paths:
+  /users:
+    get:
+      operationId: users.get_all
+      description: Get a list of users.
+      parameters:
+        - name: name
+          description: Preferred Name of User
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    timestamp:
+                      type: string
+                    events:
+                      type: array
+                      items:
+                        properties:
+                          event_id:
+                            type: integer
+                            description: id of this event
+                          content:
+                            type: string
+                            description: content of the event
+                          timestamp:
+                            type: string
+                            description: timestamp of this event
+    post:
+      operationId: users.create
+      summary: Create a user and add it to the users list
+      description: Create a new user in the users list
+      parameters:
+        - name: name
+          in: query
+          description: User to create
+          required: true
+          schema:
+            type: string
+            properties:
+              name:
+                type: string
+                description: Name of user to create
+      responses:
+        '201':
+          description: Successfully created user in list
+  /users/{name}:
+    get:
+      operationId: users.get_one
+      summary: Read one user from the users list
+      description: Read one user from the users list
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            description: Name of the user to get from the list
+            type: string
+      responses:
+        '200':
+          description: Successfully read user from user list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  timestamp:
+                    type: string
+                  events:
+                    type: array
+                    items:
+                      properties:
+                        event_id:
+                          type: integer
+                          description: id of this event
+                        content:
+                          type: string
+                          description: content of the event
+                        timestamp:
+                          type: string
+                          description: timestamp of this event
+    put:
+      operationId: users.update
+      summary: Update a user in the users list
+      description: Update a user in the users list
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            description: Name of the user to update in the list
+            type: string
+      responses:
+        '200':
+          description: Successfully updated user in users list
+    delete:
+      operationId: users.delete
+      summary: Delete a user from the users list
+      description: Delete a user
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted a user from people list
+  /events:
+    get:
+      operationId: events.get_all
+      description: Get a list of all events
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    timestamp:
+                      type: string
+                    events:
+                      type: array
+                      items:
+                        properties:
+                          event_id:
+                            type: integer
+                            description: id of this event
+                          content:
+                            type: string
+                            description: content of the event
+                          timestamp:
+                            type: string
+                            description: timestamp of this event
+    post:
+      operationId: events.create
+      summary: Create event
+      description: Create a new event
+      parameters:
+        - name: event
+          in: query
+          description: event description
+          required: true
+          schema:
+            type: string
+            properties:
+              content:
+                type: string
+                description: text of the event to create
+      responses:
+        '201':
+          description: Successfully created event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    timestamp:
+                      type: string
+                    event_id:
+                      type: integer
+                      description: id of this event
+                    content:
+                      type: string
+                      description: content of the event
+  /events/{event_id}:
+    get:
+      operationId: events.get_one
+      summary: Get Event
+      description: Get a new event
+      parameters:
+        - name: event_id
+          in: path
+          description: event id
+          required: true
+          schema:
+            description: Name of the event to get from the list
+            type: string
+      responses:
+        '201':
+          description: Successfully read event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  properties:
+                    name:
+                      type: string
+                    timestamp:
+                      type: string
+                    event_id:
+                      type: integer
+                      description: id of this event
+                    content:
+                      type: string
+                      description: content of the event
+

@@ -3,6 +3,7 @@
 import os
 import sys
 import argparse
+import requests
 import logging
 from subprocess import getoutput
 
@@ -138,6 +139,32 @@ venv/
 """
 
 
+def send_telemetry_lastseen(name):
+    payload = f"name={name}"
+    try:
+        r = requests.post("http://localhost:1080/users", params=payload)
+        r.raise_for_status()
+    except requests.exceptions.ConnectionError as err:
+        raise SystemExit(err)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+    except requests.exceptions.RequestException as err:
+        raise SystemExit(err)
+
+
+def send_telemetry_event(event):
+    payload = f"event={event}"
+    try:
+        r = requests.post("http://localhost:1080/events", params=payload)
+        r.raise_for_status()
+    except requests.exceptions.ConnectionError as err:
+        raise SystemExit(err)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+    except requests.exceptions.RequestException as err:
+        raise SystemExit(err)
+
+
 def halp(*args, **kwargs):
     print("Halp")
 
@@ -145,6 +172,7 @@ def halp(*args, **kwargs):
 def hello(name: str = "World", dryrun=False):
     logging.info(f"Hello for {name}")
     print(f"Hello, {name}")
+    send_telemetry_lastseen(name)
 
 
 def write_git_commit_msg_template():
@@ -186,6 +214,7 @@ def init_git(name: str = "project", dryrun=False):
         print(f"successfully created {name}/tests")
         print(f"successfully created {name}/features")
         print(f"successfully created {name}/features/steps")
+    send_telemetry_event(f"initialized repo {name}")
 
 
 def config_git(name: str = "World", dryrun=False):
@@ -201,6 +230,7 @@ def config_git(name: str = "World", dryrun=False):
         getoutput("git config --global init.defaultbranch=main")
         write_git_commit_msg_template()
         getoutput("git config --global commit.template ~/.config/gitmsg.txt")
+    send_telemetry_event(f"git config for {name}")
 
 
 def onboarding(name: str = "World", dryrun=False):

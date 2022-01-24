@@ -17,4 +17,4 @@ def step_impl(context):
 
 @then("we are greeted")
 def step_impl(context):
-    assert context.output == "Hello, World"
+    assert context.output.splitlines()[0] == "Hello, World"

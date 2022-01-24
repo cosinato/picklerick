@@ -11,6 +11,9 @@ picklerick = "picklerick:main"
 [tool.poetry.dependencies]
 python = "^3.9"
 behave = "^1.2.6"
+Flask = "^2.0.2"
+connexion = {extras = ["swagger-ui"], version = "^2.10.0"}
+requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
