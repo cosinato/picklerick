@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "picklerick"
-version = "0.3.0"
+version = "0.4.0"
 description = "Picklerick LLC Command Line Utility"
 authors = ["Cosinato <cosinato@pm.me>"]
 

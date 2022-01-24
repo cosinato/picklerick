@@ -14,6 +14,7 @@ def get_timestamp():
 # Data to serve with our API
 USERS = {"System": {"name": "System", "timestamp": get_timestamp()}}
 
+
 # Create a handler for our read (GET) users
 def get_all():
     """

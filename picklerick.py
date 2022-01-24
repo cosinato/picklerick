@@ -14,7 +14,7 @@ logging.basicConfig(
     level=logging.DEBUG,
 )
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 COMMIT_TEMPLATE_CFGFILE = "~/.config/gitmsg.txt"
 COMMIT_TEMPLATE_MESSAGE = """
 Subject line (try to keep under 50 characters)
